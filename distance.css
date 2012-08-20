@@ -1,0 +1,45 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    font-family: "Ariel", sans-serif;
+}
+
+#report {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+.year {
+    border-spacing: 5px;
+}
+
+.month {
+    border-spacing: 4px;
+}
+th.month {
+    border: 1px solid black;
+    background: #fac;
+}
+
+.selected {
+    color: white;
+    background: #fac;
+}
+
+.dests {
+    margin-left: 10px;
+}
+
+.float {
+    float: left;
+    margin: 10px 25px 0 0;
+}
+
+a:link, a:visited {
+    color: #990066;
+}
+
+a:hover, a:active {
+    color: #cc3399;
+}
