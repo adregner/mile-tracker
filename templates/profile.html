@@ -1,0 +1,12 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+<h1>Your profile</h1>
+
+<p>Here you can edit a few pieces of information about yourself on this system.  You cannot change your email address without contacting the administrators.</p>
+<form action="/profile" method="post">
+  <label for="editName">Name: <input type="text" name="name" id="editName" value="{{ name }}"/></label>
+  <label for="editHomeCity">Home City: <input type="text" name="home_city" id="editHomeCity" value="{{ home_city }}"/></label>
+  <input type="submit" value="Save changes"/>
+</form>
+{% endblock %}

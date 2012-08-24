@@ -1,0 +1,32 @@
+{% extends '_layout.html' %}
+{% block body %}
+<div id="report">
+  <a href="{{ url_for('report') }}">View Report</a><br/>
+  <a href="{{ url_for('profile') }}">Profile</a>
+</div>
+
+<div class="float">
+  <a href="{{ url_for('calendar', year=previous.year, month=previous.month) }}">&lt; &lt; Previous</a> --- <a href="{{ url_for('calendar', year=next.year, month=next.month) }}">Next &gt; &gt;</a><br/>
+  {{ calendar_code | safe }}
+  <br/>
+  <div class="dests">{% for dest in destinations %}
+    <!-- {{ dest }} -->
+    <a href="{{ url_for('delete_model', model='dest', id=dest['id']) }}">x</a> <a href="javascript:;;" onclick="select_dest({{ dest['id'] }})"><b>{{ dest['name'] }}</b> -- {{ dest['address'] }}</a><br/>
+  {% endfor %}</div>
+  <div class="dests">
+    <form method="post" action="{{ url_for('add_destination') }}">
+      <input type="text" name="name" size="10"/>
+      <input type="text" name="address" size="50"/>
+      <input type="submit" value="Add"/>
+    </form>
+  </div>
+</div>
+
+<div class="float">
+  <b>Journey (<span id="date"></span>):</b>
+  <br/><br/>
+  <div id="visits"></div>
+  <br/>
+  <div id="distance"></div>
+</div>
+{% endblock %}

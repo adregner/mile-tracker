@@ -1,0 +1,17 @@
+{% extends '_layout.html' %}
+
+{% block body %}<pre>
+{% for w in week_numbers %}
+    {% for day in weeks[w]['days'] %}
+        {{ day['day'].ljust(28) }} | {{ day['miles'] }}
+    {% endfor %}
+        -----------------------------
+        Total miles this week: {{ weeks[w]['total'] }}
+
+{% endfor %}
+
+
+=============================
+=============================
+Total miles: {{ total }}
+</pre>{% endblock %}

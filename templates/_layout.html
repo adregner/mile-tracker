@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Mile tracker</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/distance.css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js"></script>
+    <script type="text/javascript">
+      var ROOT = 'http://localhost:5053';
+      {% if year %}var YEAR = {{year}};{% endif %}
+    </script>
+    <script type="text/javascript" src="/static/js/distance.js"></script>
+  </head>
+
+  <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
+    {% block body %}{% endblock %}
+
+  </body>
+</html>

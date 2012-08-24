@@ -1,24 +1,23 @@
-var year = '2012';
 
 Event.observe(window, 'dom:loaded', function() {
-    new Ajax.Request('distance.py/dest', {
+    new Ajax.Request(ROOT+'/dest', {
         method: 'GET',
         onSuccess: function(transport) {
-            destinations.update(transport.responseJSON);
+            destinations.update(transport.responseJSON.destinations);
         }
     });
     
     var month = 0;
     $$('table.month').each(function(tbl_month) {
         month += 1;
-        if(month > 5) {
+        /*if(month > 5) {
             tbl_month.remove();
             return;
-        }
+        }*/
         tbl_month.select('td.sun', 'td.mon', 'td.tue', 'td.wed', 'td.thu', 'td.fri', 'td.sat').each(function(td_day) {
             var day = td_day.innerHTML;
-            var date_s = year+'-'+zero_pad(''+month)+'-'+zero_pad(day);
-            td_day.update("<a href=\"javascript:;;\" id=\"day-"+date_s+"\" onclick=\"select_day('"+year+"', '"+month+"', '"+day+"')\">"+day+"</a>")
+            var date_s = YEAR+'-'+zero_pad(''+month)+'-'+zero_pad(day);
+            td_day.update("<a href=\"javascript:;;\" id=\"day-"+date_s+"\" onclick=\"select_day('"+YEAR+"', '"+month+"', '"+day+"')\">"+day+"</a>")
         });
     });
     
@@ -41,10 +40,10 @@ function select_day(year, month, day) {
     $('day-'+date).addClassName('selected')
     $('date').innerHTML = pretty_date(date);
     window.location.hash = date;
-    new Ajax.Request('distance.py/day/'+date, {
+    new Ajax.Request(ROOT+'/day/'+date, {
         method: 'GET',
         onSuccess: function(transport) {
-            visits_log = transport.responseJSON;
+            visits_log = transport.responseJSON.visits;
             draw_day();
         }
     });
@@ -52,7 +51,7 @@ function select_day(year, month, day) {
 
 function select_dest(dest_id) {
     $('distance').update()
-    new Ajax.Request('distance.py/goto', {
+    new Ajax.Request(ROOT+'/visit', {
         method: 'POST',
         parameters: $H({dest:dest_id, date:date}),
         onSuccess: function() {
@@ -68,7 +67,7 @@ function draw_day() {
         $('visits').insert("<a href=\"distance.py/delete/visit/"+v['id']+"\">x</a> <!-- "+v['day']+" #"+v['time']+": -->"+destinations.get(v['dest_id']).name+"<br/>");
     });
     
-    new Ajax.Request('distance.py/miles/'+date, {
+    new Ajax.Request(ROOT+'/miles/'+date, {
         method: 'GET',
         onSuccess: function(transport) {
             $('distance').update(transport.responseJSON.miles + ' Miles')
